@@ -21,7 +21,7 @@ public class Window {
     private WindowStatus windowStatus;
 
     @ManyToOne
-    @JoinColumn(name = "room_id")
+//    @JoinColumn(name = "room_id")
     private Room room;
 
     public Room getRoom() {
