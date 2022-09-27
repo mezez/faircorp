@@ -47,12 +47,12 @@ public class HeaterDto {
         this.status = status;
     }
 
-    public String getRoomName() {
-        return name;
+    public Long getPower() {
+        return power;
     }
 
-    public void setRoomName(String name) {
-        this.name = name;
+    public void setPower(Long power) {
+        this.power = power;
     }
 
     public Long getRoomId() {
