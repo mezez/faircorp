@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping
+@RequestMapping("/api/heaters")
 @Transactional
 //@AllArgsConstructor
 @NoArgsConstructor
@@ -34,7 +34,7 @@ public class HeaterController {
     }
 
     @GetMapping
-    public List<HeaterDto> findALl() {
+    public List<HeaterDto> findAll() {
         return heaterDao.findAll().stream().map(HeaterDto::new).collect(Collectors.toList());
     }
 
