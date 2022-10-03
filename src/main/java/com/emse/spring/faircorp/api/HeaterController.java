@@ -7,7 +7,9 @@ import com.emse.spring.faircorp.dto.HeaterDto;
 import com.emse.spring.faircorp.dto.RoomDto;
 import com.emse.spring.faircorp.dto.WindowDto;
 import com.emse.spring.faircorp.model.*;
+import com.emse.spring.faircorp.security.SpringSecurityConfig;
 import lombok.NoArgsConstructor;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,6 +36,7 @@ public class HeaterController {
     }
 
     @GetMapping
+    @Secured(SpringSecurityConfig.ROLE_ADMIN)
     public List<HeaterDto> findAll() {
         return heaterDao.findAll().stream().map(HeaterDto::new).collect(Collectors.toList());
     }
