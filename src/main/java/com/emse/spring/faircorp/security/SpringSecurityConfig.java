@@ -18,8 +18,10 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true)
 public class SpringSecurityConfig {
-    public static final String ROLE_USER = "USER";
-    public static final String ROLE_ADMIN = "ADMIN";
+    public static final String ROLE_USER = "ROLE_USER";
+    public static final String USER = "USER";
+    public static final String ROLE_ADMIN = "ROLE_ADMIN";
+    public static final String ADMIN = "ADMIN";
 
     private static final String[] AUTH_WHITELIST = {
             // -- Swagger UI v2
@@ -44,17 +46,44 @@ public class SpringSecurityConfig {
 
         //create regular user
         manager.createUser(
-                User.withUsername("user").password(encoder.encode("password")).roles(ROLE_USER).build()
+                User.withUsername("user").password(encoder.encode("password")).roles(USER).build()
         );
 
         //create admin user
         manager.createUser(
-                User.withUsername("admin").password(encoder.encode("password")).roles(ROLE_ADMIN).build()
+                User.withUsername("admin").password(encoder.encode("password")).roles(ADMIN).build()
         );
 
         return manager;
     }
 
+    @Bean
+    @Order(1)
+    public SecurityFilterChain filterChainAdmin(HttpSecurity httpSecurity) throws Exception{
+        return httpSecurity
+                .csrf().disable()
+                .antMatcher("/api/**")
+                .authorizeRequests(authorize -> authorize.anyRequest().hasRole(ADMIN))
+                .formLogin(Customizer.withDefaults())
+                .httpBasic(Customizer.withDefaults())
+                .build();
+    }
+
+    @Bean
+    @Order(2)
+    public SecurityFilterChain filterChainSwagger(HttpSecurity httpSecurity) throws Exception{
+        return httpSecurity
+                .csrf().disable()
+                .authorizeRequests()
+                .antMatchers(AUTH_WHITELIST).permitAll()  // whitelist Swagger UI resources
+                .and()
+                .formLogin(Customizer.withDefaults())
+                .httpBasic(Customizer.withDefaults())
+                .build();
+    }
+
+    @Bean
+    @Order(3)
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception{
         return httpSecurity
                 .csrf().disable()
@@ -65,34 +94,24 @@ public class SpringSecurityConfig {
                 .build();
     }
 
+
+
 //    @Bean
 //    @Order(1)
 //    public SecurityFilterChain filterChainC(HttpSecurity httpSecurity) throws Exception{
+//
+//
 //        return httpSecurity
 //                .csrf().disable()
-//                .antMatcher("/api/**")
-//                .authorizeRequests(authorize -> authorize.anyRequest().hasRole(ROLE_ADMIN))
+//                .authorizeRequests()
+//                .antMatchers(AUTH_WHITELIST).permitAll()  // whitelist Swagger UI resources
+//                .antMatchers("/api/**").hasRole(ROLE_ADMIN)
+//                .antMatchers("/**").authenticated()  // require authentication
+////                .anyRequest()
+////                .authenticated()
+//                .and()
 //                .formLogin(Customizer.withDefaults())
 //                .httpBasic(Customizer.withDefaults())
 //                .build();
 //    }
-
-    @Bean
-    @Order(1)
-    public SecurityFilterChain filterChainC(HttpSecurity httpSecurity) throws Exception{
-
-
-        return httpSecurity
-                .csrf().disable()
-                .authorizeRequests()
-                .antMatchers(AUTH_WHITELIST).permitAll()  // whitelist Swagger UI resources
-                .antMatchers("/api/**").hasRole(ROLE_ADMIN)
-                .antMatchers("/**").authenticated()  // require authentication
-//                .anyRequest()
-//                .authenticated()
-                .and()
-                .formLogin(Customizer.withDefaults())
-                .httpBasic(Customizer.withDefaults())
-                .build();
-    }
 }

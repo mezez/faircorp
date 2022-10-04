@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     @GetMapping
-//    @Secured(SpringSecurityConfig.ROLE_ADMIN) //CURRENTLY FAILING. REASON UNKNOWN
+    @Secured(SpringSecurityConfig.ROLE_ADMIN) //CURRENTLY FAILING. REASON UNKNOWN
     public ResponseEntity<String> getLoggedInUsername(@AuthenticationPrincipal UserDetails userDetails){
 //    public ResponseEntity<String> getLoggedInUsername(){
         return ResponseEntity.ok(userDetails.getUsername());
