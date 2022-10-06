@@ -34,7 +34,9 @@ public class SpringSecurityConfig {
             "/webjars/**",
             // -- Swagger UI v3 (OpenAPI)
             "/v3/api-docs/**",
-            "/swagger-ui/**"
+            "/swagger-ui/**",
+//            "/console",
+            "/console/**",
             // other public endpoints of your API may be appended to this array
     };
 
@@ -73,6 +75,10 @@ public class SpringSecurityConfig {
     @Order(2)
     public SecurityFilterChain filterChainSwagger(HttpSecurity httpSecurity) throws Exception{
         return httpSecurity
+                .headers().frameOptions().disable()
+                .and()
+                .headers().frameOptions().sameOrigin()
+                .and()
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers(AUTH_WHITELIST).permitAll()  // whitelist Swagger UI resources

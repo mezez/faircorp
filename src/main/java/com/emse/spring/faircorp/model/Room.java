@@ -30,7 +30,12 @@ public class Room {
 
     //bidirectional list of windows
     @OneToMany(mappedBy = "room")
-    private Set <Window> windows;
+    private Set<Window> windows;
+
+    @ManyToOne
+    @NotNull
+    @JoinColumn(name = "building_id")
+    private Building building;
 
     //constructor with non nullable  and default constructor
 
@@ -38,13 +43,30 @@ public class Room {
     public Room() {
     }
 
-    public Room(Integer floor, String name) {
+    public Room(Integer floor, String name, Building building) {
         this.floor = floor;
         this.name = name;
+        this.building = building;
+    }
+
+    public Room(Integer floor, String name, Building building, Double currentTemperature, Double targetTemperature) {
+        this.floor = floor;
+        this.name = name;
+        this.building = building;
+        this.currentTemperature = currentTemperature != null ? currentTemperature : 0;
+        this.targetTemperature = targetTemperature != null ? targetTemperature : 0;
     }
 
     public Long getId() {
         return id;
+    }
+
+    public Building getBuilding() {
+        return building;
+    }
+
+    public void setBuilding(Building building) {
+        this.building = building;
     }
 
     public void setId(Long id) {

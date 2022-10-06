@@ -1,5 +1,6 @@
 package com.emse.spring.faircorp.api;
 
+import com.emse.spring.faircorp.dao.BuildingDao;
 import com.emse.spring.faircorp.dao.HeaterDao;
 import com.emse.spring.faircorp.dao.RoomDao;
 import com.emse.spring.faircorp.dao.WindowDao;
@@ -25,17 +26,19 @@ import java.util.stream.Collectors;
 public class RoomController {
 
     private RoomDao roomDao;
+    private BuildingDao buildingDao;
     private WindowDao windowDao;
     private HeaterDao heaterDao;
 
-    public RoomController(RoomDao roomDao, WindowDao windowDao, HeaterDao heaterDao) {
+    public RoomController(RoomDao roomDao, BuildingDao buildingDao, WindowDao windowDao, HeaterDao heaterDao) {
         this.roomDao = roomDao;
+        this.buildingDao = buildingDao;
         this.windowDao = windowDao;
         this.heaterDao = heaterDao;
     }
 
     @GetMapping
-    public List<RoomDto> findALl() {
+    public List<RoomDto> findAll() {
         return roomDao.findAll().stream().map(RoomDto::new).collect(Collectors.toList());
     }
 
@@ -48,11 +51,16 @@ public class RoomController {
     @PostMapping //create and uodate
     public RoomDto create(@RequestBody RoomDto dto) {
         Room room = null;
-        //room id should be null
+
+        // WindowDto must always contain the window room
+        Building building = buildingDao.getById(dto.getBuildingId());
+        Window window = null;
+        //create new room
         if (dto.getId() == null) {
-            room = roomDao.save(new Room(dto.getFloor(), dto.getName()));
+            room = roomDao.save(new Room(dto.getFloor(), dto.getName(), building, dto.getCurrentTemperature(), dto.getTargetTemperature()));
 //            room = roomDao.save(new Room(dto.getName(), dto.getFloor(), dto.getCurrentTemperature(), dto.getTargetTemperature()));
         } else {
+            //update existing room
             room = roomDao.getReferenceById(dto.getId());
 
             room.setFloor(dto.getFloor());
