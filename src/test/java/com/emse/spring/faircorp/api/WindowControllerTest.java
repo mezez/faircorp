@@ -6,6 +6,7 @@ import com.emse.spring.faircorp.dao.RoomDao;
 import com.emse.spring.faircorp.dao.WindowDao;
 //import com.emse.spring.faircorp.domain.*;
 import com.emse.spring.faircorp.dto.WindowDto;
+import com.emse.spring.faircorp.model.Building;
 import com.emse.spring.faircorp.model.Room;
 import com.emse.spring.faircorp.model.Window;
 import com.emse.spring.faircorp.model.WindowStatus;
@@ -132,7 +133,8 @@ class WindowControllerTest {
     }
 
     private Window createWindow(String name) {
-        Room room = new Room(1,"S1");
+        Building building = new Building("Test Building", 2, 4);
+        Room room = new Room(1,"S1", building);
         return new Window(name, WindowStatus.OPEN, room);
     }
 
