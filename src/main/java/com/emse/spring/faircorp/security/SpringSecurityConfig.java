@@ -3,6 +3,7 @@ package com.emse.spring.faircorp.security;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -61,11 +62,15 @@ public class SpringSecurityConfig {
 
     @Bean
     @Order(1)
-    public SecurityFilterChain filterChainAdmin(HttpSecurity httpSecurity) throws Exception{
+    public SecurityFilterChain filterChainAdminPost(HttpSecurity httpSecurity) throws Exception{
         return httpSecurity
                 .csrf().disable()
-                .antMatcher("/api/**")
-                .authorizeRequests(authorize -> authorize.anyRequest().hasRole(ADMIN))
+                .authorizeRequests()
+                .antMatchers("/api/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.POST, "/api/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.PUT, "/api/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/api/**").hasRole("ADMIN")
+                .and()
                 .formLogin(Customizer.withDefaults())
                 .httpBasic(Customizer.withDefaults())
                 .build();
@@ -100,6 +105,18 @@ public class SpringSecurityConfig {
                 .build();
     }
 
+
+//    @Bean
+//    @Order(1)
+//    public SecurityFilterChain filterChainAdmin(HttpSecurity httpSecurity) throws Exception{
+//        return httpSecurity
+//                .csrf().disable()
+//                .antMatcher("/api/**")
+//                .authorizeRequests(authorize -> authorize.anyRequest().hasRole(ADMIN))
+//                .formLogin(Customizer.withDefaults())
+//                .httpBasic(Customizer.withDefaults())
+//                .build();
+//    }
 
 
 //    @Bean
