@@ -22,7 +22,7 @@ public class Building {
     @Nullable
     private Integer numberOfRooms;
 
-    @OneToMany(mappedBy = "building")
+    @OneToMany(mappedBy = "building", cascade = CascadeType.ALL)
     private Set<Room> room;
 
     public Building() {

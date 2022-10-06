@@ -29,7 +29,7 @@ public class Room {
     private Set<Heater> heaters;
 
     //bidirectional list of windows
-    @OneToMany(mappedBy = "room")
+    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
     private Set<Window> windows;
 
     @ManyToOne

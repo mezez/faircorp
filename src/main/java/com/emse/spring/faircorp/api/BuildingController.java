@@ -63,7 +63,7 @@ public class BuildingController {
         return new BuildingDto(building);
     }
 
-    @DeleteMapping
+    @DeleteMapping(path = "/{id}")
     public void delete(@PathVariable Long id) {
         buildingDao.deleteById(id);
     }

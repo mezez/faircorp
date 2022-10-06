@@ -14,7 +14,7 @@ public class BuildingDto implements Serializable {
     private String name;
     private Integer numberOfFloors;
     private Integer numberOfRooms;
-    private Set<RoomDto> room;
+//    private Set<RoomDto> room;
 
 
     public BuildingDto() {
@@ -43,9 +43,9 @@ public class BuildingDto implements Serializable {
         return numberOfRooms;
     }
 
-    public Set<RoomDto> getRoom() {
-        return room;
-    }
+//    public Set<RoomDto> getRoom() {
+//        return room;
+//    }
 
     @Override
     public int hashCode() {

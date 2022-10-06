@@ -75,7 +75,7 @@ public class HeaterController {
         return new HeaterDto(heater);
     }
 
-    @DeleteMapping
+    @DeleteMapping(path = "/{id}")
     public void delete(@PathVariable Long id) {
         heaterDao.deleteById(id);
     }
