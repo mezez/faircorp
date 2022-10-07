@@ -16,6 +16,7 @@ class BuildingDaoTest {
 
     @Test
     public void shouldFindBuilding(){
+        //Application should be running to get expected test result
         Building building = buildingDao.getReferenceById(-100L);
         Assertions.assertThat(building.getName()).isEqualTo("Espace Fauriel");
     }

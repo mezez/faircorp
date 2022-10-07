@@ -24,9 +24,14 @@ import java.util.stream.Collectors;
 public class BuildingController {
 
     private BuildingDao buildingDao;
+    private HeaterDao heaterDao;
+    private RoomDao roomDao;
+    private WindowDao windowDao;
 
-    public BuildingController(BuildingDao buildingDao, WindowDao windowDao, HeaterDao heaterDao) {
+    public BuildingController(BuildingDao buildingDao, WindowDao windowDao, RoomDao roomDao, HeaterDao heaterDao) {
         this.buildingDao = buildingDao;
+        this.heaterDao = heaterDao;
+        this.roomDao = roomDao;
     }
 
     @GetMapping
@@ -69,7 +74,50 @@ public class BuildingController {
     }
 
     //TODO MAYBE TURN OFF ALL HEATERS IN THE BUILDING
+    @PutMapping(path = "/{id}/switchAllHeaters/{newStatus}")
+    public String switchAllHeatersStatus(@PathVariable Long id, String newStatus){
+        try{
+            //get rooms by building id
+            List<Room> rooms = roomDao.findByBuildingId(id);
+
+            for (Room room: rooms ) {
+                //get heaters
+                List<Heater> heaters = heaterDao.findByRoomId(room.getId());
+                for (Heater heater: heaters) {
+                    heater.setHeaterStatus(newStatus.toLowerCase().equals("on") ? HeaterStatus.ON: HeaterStatus.OFF);
+                }
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return "Heaters have been turned "+newStatus;
+
+    }
+
 
     //TODO MAYBE OPEN OR CLOSE ALL WINDOWS IN THE BUILDING
+    @PutMapping(path = "/{id}/switchAllWindows/{newStatus}")
+    public String switchAllWindowsStatus(@PathVariable Long id, String newStatus){
+        try{
+            //get rooms by building id
+            List<Room> rooms = roomDao.findByBuildingId(id);
+
+            for (Room room: rooms ) {
+                //get heaters
+                List<Window> windows = windowDao.findByRoomId(room.getId());
+                for (Window window: windows) {
+                    window.setWindowStatus(newStatus.toLowerCase().equals("open") ? WindowStatus.OPEN: WindowStatus.CLOSED);
+                }
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return newStatus.toUpperCase() + " action completed for all building windows";
+
+    }
 
 }
