@@ -24,19 +24,15 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 public class HeaterController {
 
-//    private RoomDao roomDao;
-//    private WindowDao windowDao;
     private HeaterDao heaterDao;
     private RoomDao roomDao;
 
     public HeaterController(HeaterDao heaterDao, RoomDao roomDao) {
         this.roomDao = roomDao;
-//        this.windowDao = windowDao;
         this.heaterDao = heaterDao;
     }
 
     @GetMapping
-    @Secured(SpringSecurityConfig.ROLE_ADMIN)
     public List<HeaterDto> findAll() {
         return heaterDao.findAll().stream().map(HeaterDto::new).collect(Collectors.toList());
     }
@@ -53,7 +49,7 @@ public class HeaterController {
         return new HeaterDto(heater);
     }
 
-    @PostMapping //create and uodate
+    @PostMapping //create and update
     public HeaterDto create(@RequestBody HeaterDto dto) {
         Heater heater = null;
         //heater id should be null
@@ -79,44 +75,5 @@ public class HeaterController {
     public void delete(@PathVariable Long id) {
         heaterDao.deleteById(id);
     }
-
-
-//    @PutMapping(path = "/{id}/switchWindows")
-//    public List<WindowDto> switchWindowsStatus(@PathVariable Long id) {
-//        List<WindowDto> windowResponse = new ArrayList<>();
-//        try {
-//            List<Window> windows = windowDao.findByRoomId(id);
-//
-////            System.out.println("found windows");
-////            System.out.println(windows);
-//
-//            for (Window window : windows) {
-//                window.setWindowStatus(window.getWindowStatus() == WindowStatus.OPEN ? WindowStatus.CLOSED : WindowStatus.OPEN);
-//                windowResponse.add(new WindowDto(window));
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//
-//        return windowResponse;
-//    }
-//
-//    @PutMapping(path = "/{id}/switchHeaters")
-//    public List<HeaterDto> switchHeatersStatus(@PathVariable Long id) {
-//        List<HeaterDto> heaterResponse = new ArrayList<>();
-//        try {
-//            List<Heater> heaters = heaterDao.findByRoomId(id);
-//
-//
-//            for (Heater heater : heaters) {
-//                heater.setHeaterStatus(heater.getHeaterStatus() == HeaterStatus.ON ? HeaterStatus.OFF : HeaterStatus.ON);
-//                heaterResponse.add(new HeaterDto(heater));
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//
-//        return heaterResponse;
-//    }
 
 }
