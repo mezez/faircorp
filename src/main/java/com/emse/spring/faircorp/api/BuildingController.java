@@ -30,10 +30,11 @@ public class BuildingController {
     private RoomDao roomDao;
     private WindowDao windowDao;
 
-    public BuildingController(BuildingDao buildingDao, WindowDao windowDao, RoomDao roomDao, HeaterDao heaterDao) {
+    public BuildingController(BuildingDao buildingDao, RoomDao roomDao, WindowDao windowDao, HeaterDao heaterDao) {
         this.buildingDao = buildingDao;
         this.heaterDao = heaterDao;
         this.roomDao = roomDao;
+        this.windowDao = windowDao;
     }
 
     @GetMapping
@@ -77,7 +78,7 @@ public class BuildingController {
 
     //TODO MAYBE TURN OFF ALL HEATERS IN THE BUILDING
     @PutMapping(path = "/{id}/switchAllHeaters/{newStatus}")
-    public String switchAllHeatersStatus(@PathVariable Long id, String newStatus){
+    public String switchAllHeatersStatus(@PathVariable Long id,@PathVariable String newStatus){
         try{
             //get rooms by building id
             List<Room> rooms = roomDao.findByBuildingId(id);
@@ -99,9 +100,8 @@ public class BuildingController {
     }
 
 
-    //TODO MAYBE OPEN OR CLOSE ALL WINDOWS IN THE BUILDING
     @PutMapping(path = "/{id}/switchAllWindows/{newStatus}")
-    public String switchAllWindowsStatus(@PathVariable Long id, String newStatus){
+    public String switchAllWindowsStatus(@PathVariable Long id,@PathVariable String newStatus){
         try{
             //get rooms by building id
             List<Room> rooms = roomDao.findByBuildingId(id);
@@ -125,7 +125,6 @@ public class BuildingController {
     @GetMapping(path = "/findByName")
     public List<BuildingDto> findByName(@RequestParam String name){
 
-//        return new ResponseEntity<List<Building>>(BuildingDao.findByName(name), HttpStatus.OK);
         List<BuildingDto> buildings =  buildingDao.findByName(name).stream().map(BuildingDto::new).collect(Collectors.toList());;
         return  buildings;
 

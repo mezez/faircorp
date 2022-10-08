@@ -52,7 +52,7 @@ public class WindowController {
             window = windowDao.save(new Window(dto.getName(), dto.getWindowStatus(), room));
         }
         else {
-            window = windowDao.getById(dto.getId());  // (9)
+            window = windowDao.getReferenceById(dto.getId());  // (9)
             window.setWindowStatus(dto.getWindowStatus());
         }
         return new WindowDto(window);
