@@ -9,6 +9,8 @@ import com.emse.spring.faircorp.dto.BuildingDto;
 import com.emse.spring.faircorp.dto.WindowDto;
 import com.emse.spring.faircorp.model.*;
 import lombok.NoArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -117,6 +119,15 @@ public class BuildingController {
         }
 
         return newStatus.toUpperCase() + " action completed for all building windows";
+
+    }
+
+    @GetMapping(path = "/findByName")
+    public List<BuildingDto> findByName(@RequestParam String name){
+
+//        return new ResponseEntity<List<Building>>(BuildingDao.findByName(name), HttpStatus.OK);
+        List<BuildingDto> buildings =  buildingDao.findByName(name).stream().map(BuildingDto::new).collect(Collectors.toList());;
+        return  buildings;
 
     }
 

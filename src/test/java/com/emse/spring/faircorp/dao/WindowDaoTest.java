@@ -61,7 +61,18 @@ class WindowDaoTest {
 
     }
 
+    @Test
+    void findByRoomId() {
+        List<Window> windows = windowDao.findByRoomId(-10L);
+        Assertions.assertThat(windows.isEmpty()).isFalse();
+
+        //based on the initial number of heaters in the db at startup
+        Assertions.assertThat(((long) windows.size())).isEqualTo(2);
+
+    }
+
     @AfterEach
     void tearDown() {
     }
+
 }

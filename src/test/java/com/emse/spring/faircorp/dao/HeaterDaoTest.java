@@ -26,6 +26,12 @@ class HeaterDaoTest {
     }
 
     @Test
+    public void shouldGetAListOfHeaters(){
+        List<Heater> heaters = heaterDao.findAll();
+        Assertions.assertThat(heaters.isEmpty()).isFalse();
+    }
+
+    @Test
     public void shouldDeleteRoomHeaters() {
         Room room = roomDao.getReferenceById(-10L);
         List<Long> roomIds = room.getHeaters().stream().map(Heater::getId).collect(Collectors.toList());
@@ -35,5 +41,33 @@ class HeaterDaoTest {
         List<Heater> result = heaterDao.findAllById(roomIds);
         Assertions.assertThat(result).isEmpty();
 
+    }
+
+    @Test
+    public void shouldDeleteHeaterByRoom() {
+        List<Heater> heaters = heaterDao.findAll();
+        Heater firstHeater = heaters.get(0);
+        Long firstHeaterId = firstHeater.getId();
+
+        heaterDao.deleteByRoom(firstHeater.getRoom().getId());
+
+        heaters = heaterDao.findAll();
+        boolean foundDeletedHeater = false;
+        for (Heater heater: heaters) {
+            if (heater.getId().equals(firstHeaterId)){
+                foundDeletedHeater = true;
+                break;
+            }
+        }
+        Assertions.assertThat(foundDeletedHeater).isFalse();
+    }
+
+    @Test
+    public void shouldFindHeatersByRoomId() {
+        List<Heater> heaters = heaterDao.findByRoomId(-10L);
+        Assertions.assertThat(heaters.isEmpty()).isFalse();
+
+        //based on the initial number of heaters in the db at startup
+        Assertions.assertThat(((long) heaters.size())).isEqualTo(2);
     }
 }

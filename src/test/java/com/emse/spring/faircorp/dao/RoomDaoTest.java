@@ -1,15 +1,12 @@
 package com.emse.spring.faircorp.dao;
 
 import com.emse.spring.faircorp.model.Room;
-import com.emse.spring.faircorp.model.Window;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
 class RoomDaoTest {
@@ -36,4 +33,12 @@ class RoomDaoTest {
         Assertions.assertThat(result).isEmpty();
     }
 
+    @Test
+    void shouldFindRoomByBuildingId() {
+        List<Room> rooms = roomDao.findByBuildingId(-100L);
+        Assertions.assertThat(rooms.isEmpty()).isFalse();
+
+        //based on the initial number of heaters in the db at startup
+        Assertions.assertThat(((long) rooms.size())).isEqualTo(1);
+    }
 }
