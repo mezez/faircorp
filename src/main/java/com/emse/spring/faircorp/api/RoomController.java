@@ -48,7 +48,7 @@ public class RoomController {
         return roomDao.findById(id).map(RoomDto::new).orElse(null);
     }
 
-    @PostMapping //create and uodate
+    @PostMapping //create and update
     public RoomDto create(@RequestBody RoomDto dto) {
         Room room = null;
 
