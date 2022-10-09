@@ -19,7 +19,7 @@ public class Building {
     @NotNull
     private Integer numberOfFloors;
 
-    @Nullable
+    @NotNull
     private Integer numberOfRooms;
 
     @OneToMany(mappedBy = "building", cascade = CascadeType.ALL)

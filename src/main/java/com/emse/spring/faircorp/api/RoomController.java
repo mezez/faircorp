@@ -51,6 +51,11 @@ public class RoomController {
         // WindowDto must always contain the window room
         Building building = buildingDao.getReferenceById(dto.getBuildingId());
         Window window = null;
+
+        //validate room floor
+        if (building.getNumberOfFloors() < dto.getFloor())
+            throw new IllegalStateException("Maximum number of floors for the " + building.getName() + " building is " + building.getNumberOfFloors());
+
         //create new room
         if (dto.getId() == null) {
             room = roomDao.save(new Room(dto.getFloor(), dto.getName(), building, dto.getCurrentTemperature(), dto.getTargetTemperature()));
