@@ -4,17 +4,12 @@ import com.emse.spring.faircorp.dao.BuildingDao;
 import com.emse.spring.faircorp.dao.HeaterDao;
 import com.emse.spring.faircorp.dao.RoomDao;
 import com.emse.spring.faircorp.dao.WindowDao;
-import com.emse.spring.faircorp.dto.HeaterDto;
 import com.emse.spring.faircorp.dto.BuildingDto;
-import com.emse.spring.faircorp.dto.WindowDto;
 import com.emse.spring.faircorp.model.*;
 import lombok.NoArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -44,18 +39,17 @@ public class BuildingController {
 
     @GetMapping("/{id}")
     public BuildingDto findById(@PathVariable Long id) {
-//        return buildingDao.findById(id).map(BuildingDto::new).orElse(new BuildingDto());
         return buildingDao.findById(id).map(BuildingDto::new).orElse(null);
     }
 
     @PostMapping //create and update
     public BuildingDto create(@RequestBody BuildingDto dto) {
         Building building = null;
-        //building id should be null
+        //create new record
         if (dto.getId() == null) {
             building = buildingDao.save(new Building(dto.getName(), dto.getNumberOfFloors(), dto.getNumberOfRooms()));
-//            building = buildingDao.save(new Building(dto.getName(), dto.getFloor(), dto.getCurrentTemperature(), dto.getTargetTemperature()));
         } else {
+            //update existing record
             building = buildingDao.getReferenceById(dto.getId());
 
             building.setName(dto.getName());
@@ -76,7 +70,12 @@ public class BuildingController {
         buildingDao.deleteById(id);
     }
 
-    //TODO MAYBE TURN OFF ALL HEATERS IN THE BUILDING
+    /***
+     * Turn all heaters in a building on or off
+     * :args
+     * :id - building ID
+     * :newStatus - intended status of all heaters, either 'ON' or 'OFF'
+     * ***/
     @PutMapping(path = "/{id}/switchAllHeaters/{newStatus}")
     public String switchAllHeatersStatus(@PathVariable Long id,@PathVariable String newStatus){
         try{
@@ -100,6 +99,12 @@ public class BuildingController {
     }
 
 
+    /***
+     * Open or close all windows in a building
+     * :args
+     * :id - building ID
+     * :newStatus - intended status of all heaters, either 'OPEN' or 'CLOSE'
+     * ***/
     @PutMapping(path = "/{id}/switchAllWindows/{newStatus}")
     public String switchAllWindowsStatus(@PathVariable Long id,@PathVariable String newStatus){
         try{
@@ -122,6 +127,11 @@ public class BuildingController {
 
     }
 
+    /***
+     * Find buildings by name
+     * :query param
+     * :name - building name
+     * ***/
     @GetMapping(path = "/findByName")
     public List<BuildingDto> findByName(@RequestParam String name){
 

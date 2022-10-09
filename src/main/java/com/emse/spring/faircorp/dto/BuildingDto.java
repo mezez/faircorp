@@ -1,12 +1,10 @@
 package com.emse.spring.faircorp.dto;
 
 import com.emse.spring.faircorp.model.Building;
-import io.swagger.models.auth.In;
 import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Objects;
-import java.util.Set;
 
 @Data
 public class BuildingDto implements Serializable {
@@ -14,7 +12,6 @@ public class BuildingDto implements Serializable {
     private String name;
     private Integer numberOfFloors;
     private Integer numberOfRooms;
-//    private Set<RoomDto> room;
 
 
     public BuildingDto() {

@@ -1,10 +1,6 @@
 package com.emse.spring.faircorp.dao;
 
 import com.emse.spring.faircorp.model.Room;
-import com.emse.spring.faircorp.model.Window;
-import com.emse.spring.faircorp.model.WindowStatus;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -22,11 +18,4 @@ public class RoomDaoCustomImpl implements RoomDaoCustom {
                 .getResultList();
     }
 
-//    @Override
-//    public List<Room> findByBuildingId(Long building_id){
-//        String jpql = "SELECT r FROM Room r WHERE r.building.id=:building_id";
-//        return entityManager.createQuery(jpql, Room.class)
-//                .setParameter("building_id", building_id)
-//                .getResultList();
-//    }
 }

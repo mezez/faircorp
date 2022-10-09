@@ -1,16 +1,13 @@
 package com.emse.spring.faircorp.api;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 import com.emse.spring.faircorp.dao.RoomDao;
 import com.emse.spring.faircorp.dao.WindowDao;
-//import com.emse.spring.faircorp.domain.*;
 import com.emse.spring.faircorp.dto.WindowDto;
 import com.emse.spring.faircorp.model.Building;
 import com.emse.spring.faircorp.model.Room;
 import com.emse.spring.faircorp.model.Window;
 import com.emse.spring.faircorp.model.WindowStatus;
-//import com.emse.spring.faircorp.repository.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;

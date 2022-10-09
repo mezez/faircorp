@@ -8,7 +8,6 @@ import com.emse.spring.faircorp.dto.BuildingDto;
 import com.emse.spring.faircorp.model.*;
 import com.emse.spring.faircorp.model.Building;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -17,7 +16,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 import static org.hamcrest.Matchers.containsInAnyOrder;
@@ -139,7 +137,7 @@ class BuildingControllerTest {
     }
 
     @Test
-    void shouldwitchAllWindowsStatus() throws Exception {
+    void shouldSwitchAllWindowsStatus() throws Exception {
         Building expectedBuilding = createBuilding("building 1");
 //        expectedBuilding.setId(1L);
         Window expectedWindow = createWindow("H1", expectedBuilding);

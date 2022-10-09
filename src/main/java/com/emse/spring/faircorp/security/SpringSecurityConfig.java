@@ -105,36 +105,4 @@ public class SpringSecurityConfig {
                 .build();
     }
 
-
-//    @Bean
-//    @Order(1)
-//    public SecurityFilterChain filterChainAdmin(HttpSecurity httpSecurity) throws Exception{
-//        return httpSecurity
-//                .csrf().disable()
-//                .antMatcher("/api/**")
-//                .authorizeRequests(authorize -> authorize.anyRequest().hasRole(ADMIN))
-//                .formLogin(Customizer.withDefaults())
-//                .httpBasic(Customizer.withDefaults())
-//                .build();
-//    }
-
-
-//    @Bean
-//    @Order(1)
-//    public SecurityFilterChain filterChainC(HttpSecurity httpSecurity) throws Exception{
-//
-//
-//        return httpSecurity
-//                .csrf().disable()
-//                .authorizeRequests()
-//                .antMatchers(AUTH_WHITELIST).permitAll()  // whitelist Swagger UI resources
-//                .antMatchers("/api/**").hasRole(ROLE_ADMIN)
-//                .antMatchers("/**").authenticated()  // require authentication
-////                .anyRequest()
-////                .authenticated()
-//                .and()
-//                .formLogin(Customizer.withDefaults())
-//                .httpBasic(Customizer.withDefaults())
-//                .build();
-//    }
 }

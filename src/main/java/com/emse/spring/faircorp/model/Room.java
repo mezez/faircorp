@@ -3,7 +3,6 @@ package com.emse.spring.faircorp.model;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -36,9 +35,6 @@ public class Room {
     @NotNull
     @JoinColumn(name = "building_id")
     private Building building;
-
-    //constructor with non nullable  and default constructor
-
 
     public Room() {
     }

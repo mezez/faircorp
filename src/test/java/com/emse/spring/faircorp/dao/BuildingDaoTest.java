@@ -16,10 +16,6 @@ class BuildingDaoTest {
     private BuildingDao buildingDao;
 
     @Test
-
-    //APPLICATION NEEDS TO BE RUNNING TO HAVE A WORKING DB WITH RECORDS
-    //DB RECORDS SHOULD NOT BE TAMPERED WITH TO OBTAIN EXPECTED RESULTS
-
     public void shouldFindBuilding(){
 
         Building building = buildingDao.getReferenceById(-100L);
@@ -27,7 +23,7 @@ class BuildingDaoTest {
     }
 
     @Test
-    public void shouldGetAListoFBuildings(){
+    public void shouldGetAListOfBuildings(){
         List<Building> buildings = buildingDao.findAll();
         Assertions.assertThat(buildings.isEmpty()).isFalse();
     }
