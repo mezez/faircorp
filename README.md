@@ -32,7 +32,7 @@ A swagger documentation and playground for all the endpoints of the application 
 BASE_URL: **https://faircorpmez.cleverapps.io:443**
 
 USERS: **/admin-api/users**
-- Has only one endpoint; getLoggedInUsername which returns the username of the currently logged-in user. 
+- Has only one endpoint; **getLoggedInUsername** which returns the username of the currently logged-in user. 
 - Only the admin can access this endpoint
 
 The rest of the endpoints follow the **/api/**** url pattern. They include
@@ -65,4 +65,4 @@ Additionally
 
 **TEST**
 
-Test have been written to cover the APIs and Data Access objects of the Application
+Test have been written to cover the APIs and Data Access Objects of the Application
