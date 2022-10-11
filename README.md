@@ -25,22 +25,43 @@ user
 
 **APIS** 
 
+**DOCUMENTATION**
 
-USERS: /admin-api/users
+A swagger documentation and playground for all the endpoints of the application can be found at https://faircorpmez.cleverapps.io:443/swagger-ui/index.html
+
+BASE_URL: **https://faircorpmez.cleverapps.io:443**
+
+USERS: **/admin-api/users**
 - Has only one endpoint; getLoggedInUsername which returns the username of the currently logged-in user. 
 - Only the admin can access this endpoint
 
-The rest of the endpoints follow the /api/** url pattern.
+The rest of the endpoints follow the **/api/**** url pattern. They include
 
-- The regular user only has rights to the get endpoints. The rest requires admin credentials
+
+**/api/buildings**
+
+
+**/api/rooms**
+
+
+**/api/windows**
+
+
+**/api/heaters**
+
+- The regular user only has rights to the **GET** endpoints. The other endpoints requires **admin** credentials
 - All modules have the traditional CRUD ENDPOINTS
-- Create and Update operations use the same endpoints and the system detects whether the operation is a create or update based on the presence or absence of an ID for the record
+
+Additionally
+
+
+- CREATE and UPDATE operations use the same endpoints and the system detects whether the operation is a create or update based on the presence or absence of an ID for the record
 - In addition to the traditional CRUD endpoints;
-- The heater and window APIs have the switch endpoints for toggling the state of a heater/window
-- The room API has switchWindowsStatus and switchHeatersStatus endpoints for toggling the status of heaters or windows in a room
-- The buidling API the switchAllHeatersStatus for turning all heaters in a building either ON or OFF
-- The buidling API the switchAllWindowsStatus for OPENING or CLOSING all windows in a building
-- It also has a findByName endpoint with returns buildings that matches the name used in querying
+- The heater and window APIs have the **switch** endpoints for toggling the state of a heater/window
+- The room API has **switchWindowsStatus** and **switchHeatersStatus** endpoints for toggling the status of heaters or windows in a room
+- The building API has a **switchAllHeatersStatus** endpoint for turning all heaters in a building either ON or OFF. The path variable can be a string of either **ON** or **OFF** 
+- The building API has a **switchAllWindowsStatus** endpoint for OPENING or CLOSING all windows in a building. The path variable can be a string of either **OPEN** or **CLOSE**
+- It also has a **findByName** endpoint with returns buildings that matches the name used in querying
 
 **TEST**
 
