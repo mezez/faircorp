@@ -48,7 +48,6 @@ public class RoomController {
     public RoomDto create(@RequestBody RoomDto dto) {
         Room room = null;
 
-        // WindowDto must always contain the window room
         Building building = buildingDao.getReferenceById(dto.getBuildingId());
         Window window = null;
 

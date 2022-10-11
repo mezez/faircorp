@@ -96,6 +96,7 @@ class RoomControllerTest {
     void shouldUpdateRoom() throws Exception {
         Room expectedRoom = createRoom("room 1");
         expectedRoom.setId(1L);
+        expectedRoom.getBuilding().setId(1L);
         String json = objectMapper.writeValueAsString(new RoomDto(expectedRoom));
 
         given(buildingDao.getReferenceById(anyLong())).willReturn(expectedRoom.getBuilding());
