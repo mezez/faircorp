@@ -64,6 +64,8 @@ public class SpringSecurityConfig {
     @Order(1)
     public SecurityFilterChain filterChainAdminPost(HttpSecurity httpSecurity) throws Exception{
         return httpSecurity
+                .cors()
+                .and()
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.GET, "/api/**").authenticated()
@@ -80,6 +82,8 @@ public class SpringSecurityConfig {
     @Order(2)
     public SecurityFilterChain filterChainSwagger(HttpSecurity httpSecurity) throws Exception{
         return httpSecurity
+                .cors()
+                .and()
                 .headers().frameOptions().disable()
                 .and()
                 .headers().frameOptions().sameOrigin()
@@ -97,6 +101,8 @@ public class SpringSecurityConfig {
     @Order(3)
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception{
         return httpSecurity
+                .cors()
+                .and()
                 .csrf().disable()
                 .antMatcher("/**")
                 .authorizeRequests(authorize -> authorize.anyRequest().authenticated())
