@@ -24,7 +24,7 @@ public class Room {
     private Double targetTemperature;
 
     //bidirectional list of heaters
-    @OneToMany(mappedBy = "room")
+    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
     private Set<Heater> heaters;
 
     //bidirectional list of windows
