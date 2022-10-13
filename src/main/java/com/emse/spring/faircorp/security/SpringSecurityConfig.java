@@ -84,23 +84,24 @@ public class SpringSecurityConfig {
 //        return source;
 //    }
 
-//    @Bean
-//    CorsConfigurationSource corsConfigurationSource() {
-//        CorsConfiguration configuration = new CorsConfiguration();
-//        configuration.setAllowedOrigins(List.of("*"));
-//        configuration.setAllowedMethods(List.of("*"));
-//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//        source.registerCorsConfiguration("/**", configuration);
-//        return source;
-//    }
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(List.of("*"));
+        configuration.setAllowedMethods(List.of("*"));
+        configuration.setAllowCredentials(true);
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
 
 
     @Bean
     @Order(1)
     public SecurityFilterChain filterChainAdminPost(HttpSecurity httpSecurity) throws Exception{
         return httpSecurity
-//                .cors()
-//                .and()
+                .cors()
+                .and()
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.GET, "/api/**").authenticated()
@@ -117,8 +118,8 @@ public class SpringSecurityConfig {
     @Order(2)
     public SecurityFilterChain filterChainSwagger(HttpSecurity httpSecurity) throws Exception{
         return httpSecurity
-//                .cors()
-//                .and()
+                .cors()
+                .and()
                 .headers().frameOptions().disable()
                 .and()
                 .headers().frameOptions().sameOrigin()
@@ -136,8 +137,8 @@ public class SpringSecurityConfig {
     @Order(3)
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception{
         return httpSecurity
-//                .cors()
-//                .and()
+                .cors()
+                .and()
                 .csrf().disable()
                 .antMatcher("/**")
                 .authorizeRequests(authorize -> authorize.anyRequest().authenticated())
