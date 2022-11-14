@@ -4,14 +4,12 @@ import com.emse.spring.faircorp.dao.BuildingDao;
 import com.emse.spring.faircorp.dao.HeaterDao;
 import com.emse.spring.faircorp.dao.RoomDao;
 import com.emse.spring.faircorp.dao.WindowDao;
-import com.emse.spring.faircorp.dto.HeaterDto;
 import com.emse.spring.faircorp.dto.RoomDto;
 import com.emse.spring.faircorp.model.Building;
 import com.emse.spring.faircorp.model.Heater;
 import com.emse.spring.faircorp.model.HeaterStatus;
 import com.emse.spring.faircorp.model.Room;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -159,7 +157,7 @@ class RoomControllerTest {
     private Heater createHeater(String name) {
         Building building = new Building("Test Building", 2, 4);
         Room room = new Room(1,"room 1", building);
-        return new Heater(name,room, HeaterStatus.OFF);
+        return new Heater(name,room, HeaterStatus.OFF, null);
     }
 
 }

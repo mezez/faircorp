@@ -53,7 +53,11 @@ public class HeaterController {
         //create new record
         if (dto.getId() == null) {
             Room room = roomDao.getReferenceById(dto.getRoomId());
-            heater = heaterDao.save(new Heater(dto.getName(), room, dto.getHeaterStatus()));
+            if (dto.getPower() != null){
+                heater = heaterDao.save(new Heater(dto.getName(), room, dto.getHeaterStatus(), dto.getPower()));
+            }else{
+                heater = heaterDao.save(new Heater(dto.getName(), room, dto.getHeaterStatus(),null));
+            }
         } else {
             //update existing record
             heater = heaterDao.getReferenceById(dto.getId());

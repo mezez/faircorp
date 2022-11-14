@@ -133,7 +133,7 @@ class HeaterControllerTest {
     private Heater createHeater(String name) {
         Building building = new Building("Test Building", 2, 4);
         Room room = new Room(1,"S1", building);
-        return new Heater(name,room, HeaterStatus.OFF);
+        return new Heater(name,room, HeaterStatus.OFF, null);
     }
 
 }
